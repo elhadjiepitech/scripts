@@ -1,0 +1,12 @@
+Hello je m'appelle Boubacar, et je suis en MscPré de Epitech
+je suis
+je vie au free
+comment ca vas
+come ça va
+
+come "ca va"
+"comment ça va"
+'je suis le fichier x'
+"'je suis le fichier y'"
+-trouve moi si tu peux-
+
