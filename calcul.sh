@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-echo "Programme avec echo"
+echo "echo Permet d'afficher ou 'print' quelques chose"
 GREET="Bonjour cher ami!"
 echo $GREET
 

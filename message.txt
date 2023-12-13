@@ -1,0 +1,71 @@
+To disable IPv6 permanently on a Debian-based system, ensuring that it is disabled for all network interfaces, autoconfiguration is turned off for all interfaces, and these settings are applied to any new interfaces as well, you need to edit a few system configuration files. Here's how to do it:
+
+1. Edit sysctl Configuration
+The sysctl configuration is used to modify kernel parameters at runtime. You can use it to disable IPv6.
+
+Open the sysctl Configuration File:
+
+Open /etc/sysctl.conf in a text editor with root privileges. For example:
+
+bash
+Copy code
+sudo nano /etc/sysctl.conf
+Add IPv6 Disable Parameters:
+
+Add the following lines to the end of the sysctl.conf file:
+
+bash
+Copy code
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+These lines disable IPv6 for all existing network interfaces (all), disable IPv6 for new interfaces that will be added later (default), and also disable IPv6 on the loopback interface (lo).
+
+Save and Exit:
+
+Save the file and exit the text editor.
+
+Apply the Changes:
+
+Apply the changes immediately without rebooting by running:
+
+bash
+Copy code
+sudo sysctl -p
+2. Edit GRUB Configuration
+You can also add a parameter to the GRUB bootloader configuration to ensure IPv6 is disabled at the kernel level.
+
+Open the GRUB Configuration File:
+
+Open /etc/default/grub in a text editor with root privileges:
+
+bash
+Copy code
+sudo nano /etc/default/grub
+Modify GRUB CMDLINE:
+
+Find the line that starts with GRUB_CMDLINE_LINUX_DEFAULT. Add ipv6.disable=1 to the parameters. It will look something like this:
+
+bash
+Copy code
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash ipv6.disable=1"
+Save and Exit:
+
+Save the file and exit the text editor.
+
+Update GRUB:
+
+Run the following command to update the GRUB configuration:
+
+bash
+Copy code
+sudo update-grub
+Reboot Your System:
+
+To ensure all changes take effect, reboot your system.
+
+Important Notes
+Testing: After rebooting, you can confirm that IPv6 is disabled by running ip a and ensuring that no interface has an IPv6 address.
+Network Manager: If you're using Network Manager, it should respect these settings. However, some network management tools might have their own configuration for IPv6.
+Impact on Applications: Be aware that disabling IPv6 might affect certain applications and services, especially those designed to operate with IPv6.
+Security and Compatibility: Ensure that disabling IPv6 aligns with your network policies and compatibility requirements. IPv6 is increasingly adopted, and disabling it might not be preferable in all environments.
